@@ -1,0 +1,23 @@
+{
+	"name": "stacked",
+	"version": "0.0.1",
+	"description": "copy and paste over the internet",
+	"author": "Robert Williams <robert@increscent.org>",
+	"contributors": [],
+	"scripts": {
+		"start": "node stacked.js",
+		"test": "nodemon stacked.js"
+	},
+	"main": "stacked.js",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/increscent/stacked.git"
+	},
+	"dependencies": {
+		"express": "4.11.*"
+	},
+	"devDependencies": {
+		"nodemon": "*",
+		"response-time": "*"
+	}
+}
