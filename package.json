@@ -5,8 +5,12 @@
 	"author": "Robert Williams <robert@increscent.org>",
 	"contributors": [],
 	"scripts": {
-		"start": "node stacked.js",
-		"test": "nodemon stacked.js"
+		"preinstall": "sudo npm install -g forever",
+		"prestart": "./mongodb/start_mongo.sh",
+		"start": "forever start stacked.js",
+		"stop": "forever stop stacked.js",
+		"poststop": "./mongodb/stop_mongo.sh",
+		"test": "nodemon stacked.js -i www"
 	},
 	"main": "stacked.js",
 	"repository": {
@@ -14,7 +18,8 @@
 		"url": "https://github.com/increscent/stacked.git"
 	},
 	"dependencies": {
-		"express": "4.11.*"
+		"express": "4.11.*",
+		"mongoose": "3.8.*"
 	},
 	"devDependencies": {
 		"nodemon": "*",

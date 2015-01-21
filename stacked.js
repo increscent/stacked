@@ -3,8 +3,12 @@ var app = require('./config/config.js')();
 
 app.templating = require('./templating/templating.js');
 
+// load in models
+require('./models/copies.js')(app);
+
 // init routes
-require('./routes/routes.js')(app);
+require('./routes/copy.js')(app);
+require('./routes/paste.js')(app);
 
 // start the server
 var http = require('http');
