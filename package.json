@@ -19,7 +19,8 @@
 	},
 	"dependencies": {
 		"express": "4.11.*",
-		"mongoose": "3.8.*"
+		"mongoose": "3.8.*",
+		"body-parser": "1.10.*"
 	},
 	"devDependencies": {
 		"nodemon": "*",

@@ -1,7 +1,7 @@
 module.exports = function (app) {
 	var Schema = app.mongoose.Schema;
 	var copiesSchema = new Schema({
-		id: String,
+		name: String,
 		data: app.mongoose.Schema.Types.Mixed
 	});
 	
