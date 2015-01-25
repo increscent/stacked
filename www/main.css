@@ -13,3 +13,12 @@ div {
 	margin: 4rem 15%;
 	width: 70%;
 }
+
+.readonly {
+	background-color: #f8f8f8;
+}
+
+.focus-border-outline:focus {
+	outline: none;
+	border-color: #3AC5C5;
+}

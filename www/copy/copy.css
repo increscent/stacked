@@ -1,6 +1,5 @@
 .copy-name {
-	display: inline-block;
-	width: 50%;
+	width: 100%;
 }
 
 .copy-name-input {
@@ -9,23 +8,33 @@
 	width: 20rem;
 	font-size: 1rem;
 	text-align: left;
+	color: #333;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
 }
 
-.copy-save {
-	display: inline-block;
-	width: 49.5%;
-	text-align: right;
+.feedback {
+	padding: .3rem 1.7rem;
+	font-size: 1rem;
+}
+
+.feedback-positive {
+	color: #ABC466;
+}
+
+.feedback-negative {
+	color: #F17064;
 }
 
 .copy-save-button {
-	display: inline-block;
+	/*display: inline-block;*/
+	float: right;
 	font-size: 1rem;
 	padding: .3rem .7rem;
 	color: #333;
 	border: 1px solid #aaa;
+	background-color: #fff;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
@@ -33,20 +42,21 @@
 
 .copy-save-button:hover {
 	cursor: pointer;
-	border-color: #72C5C1;
-	color: #72C5C1;
+	border-color: #3AC5C5;
+	color: #3AC5C5;
 }
 
-.copy-data-input {
+.copy-data-textarea {
 	box-sizing: border-box;
-	padding: .5rem;
+	padding: .5rem .7rem;
 	margin-top: 2rem;
 	width: 100%;
 	min-height: 20rem;
 	border: 1px solid #aaa;
-	font-size: 1rem;
+	font-size: .9rem;
 	font-family: "Arvo", inherit;
 	-webkit-border-radius: 3px;
 	-moz-border-radius: 3px;
 	border-radius: 3px;
+	resize: none;
 }

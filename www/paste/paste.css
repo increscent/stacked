@@ -1,0 +1,24 @@
+.paste-name {
+	padding: .3rem .7rem;
+	font-size: 1.8rem;
+	text-align: left;
+	color: #333;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+}
+
+.paste-data-textarea {
+	box-sizing: border-box;
+	padding: .5rem .7rem;
+	margin-top: 2rem;
+	width: 100%;
+	min-height: 20rem;
+	border: 1px solid #aaa;
+	font-size: .9rem;
+	font-family: "Arvo", inherit;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	border-radius: 3px;
+	resize: none;
+}
