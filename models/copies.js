@@ -2,6 +2,8 @@ module.exports = function (app) {
 	var Schema = app.mongoose.Schema;
 	var copiesSchema = new Schema({
 		name: String,
+		title: String,
+		timestamp: {type: Date, default: Date.now},
 		data: app.mongoose.Schema.Types.Mixed
 	});
 	

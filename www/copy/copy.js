@@ -23,6 +23,7 @@ function input_handler(e) {
 function check_name(name) {
 	name = validate_name(name);
 	if (!name) return;
+	
 	ajax_request('POST', '/is_name_available', {name: name}, function (result) {
 		var data = JSON.parse(result);
 		if (data.available) {
@@ -45,23 +46,23 @@ function validate_name(name) {
 	var original = name;
 	var regex = new RegExp(' ', 'g');
 	name = name.replace(regex, '');
+	name = name.toLowerCase();
 	name = decodeURIComponent(encodeURIComponent(name));
-	if (name !== original) name_input.value = name;
 	return name;
 }
 
 function save() {
-	var name = name_input.value;
+	var title = name_input.value;
 	var data = data_textarea.value;
-	
-	name = validate_name(name);
+	var name = validate_name(title);
 	if (!name) return;
-	ajax_request('POST', '/save', {name: name, data: data}, function (result) {
+	
+	ajax_request('POST', '/save', {name: name, title: title, data: data}, function (result) {
 		result = JSON.parse(result);
 		if (result.error && !result.available) {
 			update_feedback('\'' + name + '\' is not available right now', false);
 		} else if (!result.error) {
-			update_feedback('Copy saved! Access it at <a href="http://stacked.us/' + name + '">stacked.us/' + name + '</a>', true);
+			update_feedback('Copy saved! Access it at <a href="/' + name + '">stacked.us/' + name + '</a>', true);
 		} else {
 			update_feedback('Oops, something went wrong. Please try again later.', false);
 		}

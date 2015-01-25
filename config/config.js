@@ -8,6 +8,14 @@ module.exports = function () {
 	app.path = __dirname + '/../';
 	app.port = 1920;
 	
+	// how long a given copy is guaranteed to last
+	app.copy_duration = 86400000; // 24 hours
+	// how often we clean the db
+	app.clean_interval = 3600000; // 1 hour
+	
+	app.headerHTML = 'www/header.html';
+	app.footerHTML = 'www/footer.html';
+	
 	app.bodyParser = require('body-parser');
 	app.use(app.bodyParser.urlencoded());
 	app.use(app.bodyParser.json());

@@ -16,15 +16,6 @@
 
 .feedback {
 	padding: .3rem 1.7rem;
-	font-size: 1rem;
-}
-
-.feedback-positive {
-	color: #ABC466;
-}
-
-.feedback-negative {
-	color: #F17064;
 }
 
 .copy-save-button {

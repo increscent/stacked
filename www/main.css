@@ -9,6 +9,15 @@ div {
 	box-sizing: border-box;
 }
 
+a {
+	color: inherit;
+	text-decoration: underline;
+}
+
+a:active {
+	color: #3AC5C5;
+}
+
 .page {
 	margin: 4rem 15%;
 	width: 70%;
@@ -21,4 +30,16 @@ div {
 .focus-border-outline:focus {
 	outline: none;
 	border-color: #3AC5C5;
+}
+
+.feedback {
+	font-size: 1rem;
+}
+
+.feedback-positive {
+	color: #ABC466;
+}
+
+.feedback-negative {
+	color: #F17064;
 }
