@@ -10,6 +10,7 @@
 		"start": "forever start stacked.js",
 		"stop": "forever stop stacked.js",
 		"poststop": "./mongodb/stop_mongo.sh",
+		"pretest": "grunt &",
 		"test": "nodemon stacked.js -i www"
 	},
 	"main": "stacked.js",
@@ -24,6 +25,8 @@
 	},
 	"devDependencies": {
 		"nodemon": "*",
-		"response-time": "*"
+		"response-time": "*",
+		"grunt": "*",
+    "grunt-contrib-watch": "*"
 	}
 }

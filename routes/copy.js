@@ -1,6 +1,6 @@
 module.exports = function (app) {
 	app.get('/', function (req, res) {
-		app.templating.renderHTML('www/copy.html', {}, function (result) {
+		app.templating.renderHTML('www/copy/copy.html', {}, function (result) {
 			res.send(result);
 		});
 	});

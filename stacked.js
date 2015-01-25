@@ -1,5 +1,6 @@
 // a few configurations
 var app = require('./config/config.js')();
+app.production = false;
 
 app.templating = require('./templating/templating.js');
 

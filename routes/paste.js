@@ -24,7 +24,7 @@ function send_404(res, name, templating) {
 }
 
 function send_paste(res, name, data, templating) {
-	templating.renderHTML('www/paste.html', {name: name, data: data}, function (result) {
+	templating.renderHTML('www/paste/paste.html', {name: name, data: data}, function (result) {
 		res.send(result);
 	});
 }
