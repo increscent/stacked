@@ -1,7 +1,8 @@
 module.exports = function (app) {
 	app.get('/:copy_name', function (req, res) {
-		var name = req.params.copy_name;
-		get_copy(app.models, name, function (result) {
+		var name = req.params.copy_name.toLowerCase();
+		var copy = new app.Copy(name, app);
+		copy.get( function (result) {
 			if (result) {
 				send_paste(res, result, app.templating);
 			} else {
@@ -10,12 +11,6 @@ module.exports = function (app) {
 		});
 	});
 };
-
-function get_copy(models, name, callback) {
-	models.copies.findOne({'name': name}, function (err, copy) {
-		return callback(copy);
-	});
-}
 
 function send_404(res, name, templating) {
 	templating.renderHTML('www/404/404.html', {name: name, css: '/404/404.css', html_title: 'not found'}, function (result) {

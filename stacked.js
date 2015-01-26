@@ -8,6 +8,10 @@ app.templating.init(app);
 // load in models
 require('./models/copies.js')(app);
 
+// load in classes
+app.Copy = require('./routes/classes/copy_class.js');
+app.Stream = require('./routes/classes/stream_class.js');
+
 // init routes
 require('./routes/copy.js')(app);
 require('./routes/paste.js')(app);

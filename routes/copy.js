@@ -6,14 +6,15 @@ module.exports = function (app) {
 	});
 	
 	app.post('/save', function (req, res) {
-		var data = req.body.data;
-		var name = req.body.name;
+		var name = req.body.name.toLowerCase();
 		var title = req.body.title;
+		var data = req.body.data;
 		
-		is_name_available(app.models, name, function (result) {
-			if (result) {
-				save_copy(app.models, name, title, data, function (result) {
-					send_response(res, {data: result}, !result);
+		var copy = new app.Copy(name, app);
+		copy.exists( function (exists) {
+			if (!exists) {
+				copy.save({name: name, title: title, data: data}, function (new_copy) {
+					send_response(res, {data: new_copy}, !new_copy);
 				});
 			} else {
 				send_response(res, {available: false}, true);
@@ -23,33 +24,13 @@ module.exports = function (app) {
 	
 	app.post('/is_name_available', function (req, res) {
 		var name = req.body.name.toLowerCase();
-		is_name_available(app.models, name, function (result) {
-			send_response(res, {available: result, name: name}, !result);
+		
+		var copy = new app.Copy(name, app);
+		copy.exists( function (exists) {
+			send_response(res, {available: !exists, name: name}, exists);
 		});
 	});
 };
-
-function is_name_available(models, name, callback) {
-	models.copies.findOne({'name': name}, function (err, copy) {
-		return (copy)? callback(false) : callback(true);
-	});
-}
-
-function save_copy(models, name, title, data, callback) {
-	var copy = new models.copies({
-		name: name,
-		title: title,
-		data: data,
-		markModified: 'data'
-	});
-	
-	copy.save( function (err, newCopy) {
-		if (err)
-			return callback(false);
-		else
-			return callback(newCopy);
-	});
-}
 
 function send_response(res, response, error) {
 	response.error = error;

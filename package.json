@@ -1,32 +1,33 @@
 {
-	"name": "stacked",
-	"version": "0.0.1",
-	"description": "copy and paste over the internet",
-	"author": "Robert Williams <robert@increscent.org>",
-	"contributors": [],
-	"scripts": {
-		"preinstall": "sudo npm install -g forever",
-		"prestart": "./mongodb/start_mongo.sh",
-		"start": "forever start stacked.js",
-		"stop": "forever stop stacked.js",
-		"poststop": "./mongodb/stop_mongo.sh",
-		"pretest": "grunt &",
-		"test": "nodemon stacked.js -i www"
-	},
-	"main": "stacked.js",
-	"repository": {
-		"type": "git",
-		"url": "https://github.com/increscent/stacked.git"
-	},
-	"dependencies": {
-		"express": "4.11.*",
-		"mongoose": "3.8.*",
-		"body-parser": "1.10.*"
-	},
-	"devDependencies": {
-		"nodemon": "*",
-		"response-time": "*",
-		"grunt": "*",
+  "name": "stacked",
+  "version": "0.0.1",
+  "description": "copy and paste over the internet",
+  "author": "Robert Williams <robert@increscent.org>",
+  "contributors": [],
+  "scripts": {
+    "preinstall": "sudo npm install -g forever",
+    "prestart": "./mongodb/start_mongo.sh",
+    "start": "forever start stacked.js",
+    "stop": "forever stop stacked.js",
+    "poststop": "./mongodb/stop_mongo.sh",
+    "pretest": "grunt &",
+    "test": "nodemon stacked.js -i www"
+  },
+  "main": "stacked.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/increscent/stacked.git"
+  },
+  "dependencies": {
+    "express": "4.11.*",
+    "mongoose": "3.8.*",
+    "body-parser": "1.10.*",
+    "ws": "~0.7.0"
+  },
+  "devDependencies": {
+    "nodemon": "*",
+    "response-time": "*",
+    "grunt": "*",
     "grunt-contrib-watch": "*"
-	}
+  }
 }
