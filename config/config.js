@@ -5,6 +5,9 @@ module.exports = function () {
 	app.mongoose = require('mongoose');
 	app.mongoose.connect('mongodb://127.0.0.1:27017/stacked');
 	
+	var WebSocketServer = require('ws').Server;
+  app.webSocket = new WebSocketServer({port: 1921});
+	
 	app.path = __dirname + '/../';
 	app.port = 1920;
 	
@@ -15,6 +18,8 @@ module.exports = function () {
 	
 	app.headerHTML = 'www/header.html';
 	app.footerHTML = 'www/footer.html';
+	
+	app.reserved_words = ['stream', 'about', 'stacked'];
 	
 	app.bodyParser = require('body-parser');
 	app.use(app.bodyParser.urlencoded());

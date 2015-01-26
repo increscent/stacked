@@ -15,6 +15,7 @@ app.Stream = require('./routes/classes/stream_class.js');
 // init routes
 require('./routes/copy.js')(app);
 require('./routes/paste.js')(app);
+require('./routes/stream.js')(app);
 
 // clean up overdue copies from db
 require('./tools/clean_db.js')(app);

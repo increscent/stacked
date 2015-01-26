@@ -5,6 +5,12 @@ module.exports = function (app) {
 		});
 	});
 	
+	app.get('/stream', function (req, res) {
+		app.templating.renderHTML('www/stream/stream.html', {css: '/stream/stream.css', html_title: 'stream files'}, function (result) {
+			res.send(result);
+		});
+	});
+	
 	app.post('/save', function (req, res) {
 		var name = req.body.name.toLowerCase();
 		var title = req.body.title;
@@ -22,7 +28,7 @@ module.exports = function (app) {
 		});
 	});
 	
-	app.post('/is_name_available', function (req, res) {
+	app.post('/is_copy_available', function (req, res) {
 		var name = req.body.name.toLowerCase();
 		
 		var copy = new app.Copy(name, app);

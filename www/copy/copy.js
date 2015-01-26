@@ -24,7 +24,7 @@ function check_name(name) {
 	name = validate_name(name);
 	if (!name) return;
 	
-	ajax_request('POST', '/is_name_available', {name: name}, function (result) {
+	ajax_request('POST', '/is_copy_available', {name: name}, function (result) {
 		var data = JSON.parse(result);
 		if (data.available) {
 			update_feedback('&#9989;', true);
