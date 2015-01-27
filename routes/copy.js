@@ -6,9 +6,10 @@ module.exports = function (app) {
 	});
 	
 	app.get('/stream', function (req, res) {
-		app.templating.renderHTML('www/stream/stream.html', {css: '/stream/stream.css', html_title: 'stream files'}, function (result) {
-			res.send(result);
-		});
+		res.send(JSON.stringify(req.headers));
+		// app.templating.renderHTML('www/stream/stream.html', {css: '/stream/stream.css', html_title: 'stream files'}, function (result) {
+		// 	res.send(result);
+		// });
 	});
 	
 	app.post('/save', function (req, res) {
