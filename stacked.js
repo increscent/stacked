@@ -2,6 +2,7 @@
 var app = require('./config/config.js')();
 app.production = true;
 
+// html templating
 app.templating = require('./tools/templating.js');
 app.templating.init(app);
 

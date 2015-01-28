@@ -4,7 +4,8 @@
 
 .copy-name-input {
 	padding: .3rem .7rem;
-	border: 1px solid #aaa;
+	border: none;
+	border-bottom: 2px dotted #aaa;
 	width: 20rem;
 	font-size: 1rem;
 	text-align: left;
@@ -37,7 +38,7 @@
 	color: #3AC5C5;
 }
 
-.copy-data-textarea {
+.copy-textarea {
 	box-sizing: border-box;
 	padding: .5rem .7rem;
 	margin-top: 2rem;

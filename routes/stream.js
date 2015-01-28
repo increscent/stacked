@@ -12,15 +12,15 @@ module.exports = function (app) {
 	
 	app.webSocket.on('connection', function (ws) {
 		if (ws.protocol === 'source') {
-			source_connection(ws, app);
+			source_connection(ws, app, req);
 		} else {
 			client_connection(ws, app);
 		}
 	});
 };
 
-var source_connection = function (webSocket, app) {
-	var stream = new app.Stream(webSocket, app);
+var source_connection = function (webSocket, app, req) {
+	var stream = new app.Stream(webSocket, app, req.user_id);
 };
 
 var client_connection = function (webSocket, app) {

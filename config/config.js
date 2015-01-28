@@ -24,6 +24,13 @@ module.exports = function () {
 	app.bodyParser = require('body-parser');
 	app.use(app.bodyParser.urlencoded());
 	app.use(app.bodyParser.json());
+	
+	app.cookieParser = require('cookie-parser');
+	app.use(app.cookieParser());
+	require(app.path + 'tools/cookie.js')(app);
+	
+	app.uuid = require('node-uuid');
+	
 	app.use(express.static(app.path + 'www'));
 	
 	if (!app.production) require('./dev-config.js')(app);

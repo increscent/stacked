@@ -1,10 +1,10 @@
-var save_button = document.getElementById('copy-save');
-var name_input = document.getElementById('copy-name');
-var data_textarea = document.getElementById('copy-data');
+var file_button = document.getElementById('load-file');
+var title_input = document.getElementById('copy-title');
+var data_textarea = document.getElementById('copy-text');
 var feedback_span = document.getElementById('feedback');
 
-save_button.addEventListener('click', save);
-name_input.addEventListener('keydown', input_handler);
+file_button.addEventListener('click', save);
+title_input.addEventListener('keydown', input_handler);
 
 var name_changed_timeout;
 function input_handler(e) {
@@ -15,7 +15,7 @@ function input_handler(e) {
 		update_feedback('', false);
 		clearTimeout(name_changed_timeout);
 		name_changed_timeout = setTimeout(function () {
-			check_name(name_input.value);
+			check_name(title_input.value);
 		}, 500);
 	}
 }
@@ -52,7 +52,7 @@ function validate_name(name) {
 }
 
 function save() {
-	var title = name_input.value;
+	var title = title_input.value;
 	var data = data_textarea.value;
 	var name = validate_name(title);
 	if (!name) return;

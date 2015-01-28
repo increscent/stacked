@@ -4,7 +4,8 @@ module.exports = function (app) {
 		name: String,
 		title: String,
 		timestamp: {type: Date, default: Date.now},
-		data: app.mongoose.Schema.Types.Mixed
+		data: app.mongoose.Schema.Types.Mixed,
+		user_id: String // user-agent + cookie id
 	});
 	
 	if (!app.models) app.models = {};

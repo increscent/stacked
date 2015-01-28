@@ -5,22 +5,15 @@ module.exports = function (app) {
 		});
 	});
 	
-	app.get('/stream', function (req, res) {
-		res.send(JSON.stringify(req.headers));
-		// app.templating.renderHTML('www/stream/stream.html', {css: '/stream/stream.css', html_title: 'stream files'}, function (result) {
-		// 	res.send(result);
-		// });
-	});
-	
 	app.post('/save', function (req, res) {
 		var name = req.body.name.toLowerCase();
 		var title = req.body.title;
 		var data = req.body.data;
 		
 		var copy = new app.Copy(name, app);
-		copy.exists( function (exists) {
-			if (!exists) {
-				copy.save({name: name, title: title, data: data}, function (new_copy) {
+		copy.exists( function (copy) {
+			if (!copy || req.user_id === copy.user_id) {
+				copy.save({name: name, title: title, data: data, user_id: req.user_id}, function (new_copy) {
 					send_response(res, {data: new_copy}, !new_copy);
 				});
 			} else {
