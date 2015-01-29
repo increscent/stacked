@@ -22,7 +22,7 @@ module.exports = function () {
 	app.reserved_words = ['stream', 'about', 'stacked'];
 	
 	app.bodyParser = require('body-parser');
-	app.use(app.bodyParser.urlencoded());
+	app.use(app.bodyParser.urlencoded({extended: true}));
 	app.use(app.bodyParser.json());
 	
 	app.cookieParser = require('cookie-parser');

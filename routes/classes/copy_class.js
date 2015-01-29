@@ -5,9 +5,9 @@ var Copy = function(name, app) {
 
 Copy.prototype.exists = function(callback) {
 	if (this.app.reserved_words.indexOf(this.name) > -1) return callback(true);
-	var class_scope = this;
+	var _this = this;
 	this.app.models.copies.findOne({name: this.name}, function (err, copy) {
-		class_scope.copy = copy;
+		_this.copy = copy;
 		return (copy)? callback(copy) : callback(false);
 	});
 };
@@ -33,10 +33,10 @@ Copy.prototype.save = function (data, callback) {
 };
 
 Copy.prototype.get = function (callback) {
-	var class_scope = this;
+	var _this = this;
 	this.app.models.copies.findOne({name: this.name}, function (err, copy) {
-		class_scope.copy = copy;
-		return (copy);
+		_this.copy = copy;
+		return callback(copy);
 	});
 };
 

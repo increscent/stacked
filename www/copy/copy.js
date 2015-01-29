@@ -9,16 +9,26 @@ stream.on_error = function (message) {
 };
 
 file_button.addEventListener('click', false);
-title_input.addEventListener('keydown', input_handler);
-data_textarea.addEventListener('keydown', input_handler);
+title_input.addEventListener('input', input_handler);
+data_textarea.addEventListener('input', input_handler);
 
 var input_change_timeout;
 function input_handler(e) {
 	update_feedback('', false);
+	update_title();
 	clearTimeout(input_change_timeout);
 	input_change_timeout = setTimeout(function () {
 		update_stream();
 	}, 1000);
+}
+
+function update_title() {
+	// if (!title_input.value) {
+	// 	var data = data_textarea.value;
+	// 	var first_space = data.indexOf(' ');
+	// 	if (first_space < 0) first_space = data.length;
+	// 	title_input.value = data.substring(0, first_space);
+	// }
 }
 
 function update_stream() {
@@ -26,7 +36,7 @@ function update_stream() {
 	var title = title_input.value;
 	var data = data_textarea.value;
 	
-	stream.send_update(name, title, data);
+	if (name) stream.send_update(name, title, data);
 }
 
 function update_feedback(feedback, positive) {

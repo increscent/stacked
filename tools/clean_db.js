@@ -1,4 +1,5 @@
 module.exports = function (app) {
+	remove_overdue_copies(app);
 	setInterval(function () {
 		remove_overdue_copies(app);
 	}, app.clean_interval);

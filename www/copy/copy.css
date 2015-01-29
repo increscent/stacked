@@ -1,5 +1,17 @@
-.copy-name {
-	width: 100%;
+.page-container {
+	display: table;
+}
+
+.file-area {
+	display: table-cell;
+	width: 30%;
+	height: 100%;
+}
+
+.copy-area {
+	display: table-cell;
+	width: 69%;
+	height: 100%;
 }
 
 .copy-name-input {
@@ -20,8 +32,7 @@
 }
 
 .file-button {
-	/*display: inline-block;*/
-	float: right;
+	display: inline-block;
 	font-size: 1rem;
 	padding: .3rem .7rem;
 	color: #333;

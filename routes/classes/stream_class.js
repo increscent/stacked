@@ -63,7 +63,7 @@ Stream.prototype.is_name_available = function (name, callback) {
 	var copy = new this.app.Copy(name, this.app);
 	var _this = this;
 	copy.exists( function (copy_exists) {
-		if (!_this.get(name) && (!copy_exists || copy.user_id == _this.user_id)) {
+		if (!_this.get(name) && (!copy_exists || copy_exists.user_id == _this.user_id)) {
 			return callback(true);
 		} else {
 			return callback(false);
@@ -85,9 +85,10 @@ Stream.prototype.update = function (message) {
 Stream.prototype.close = function (app) {
 	if (!this.exists()) return;
 	
+	var _this = this;
 	var copy = new this.app.Copy(this.name, this.app);
 	copy.save({title: this.title, data: this.data, user_id: this.user_id}, function (result) {
-		delete streams[this.name];
+		delete streams[_this.name];
 	});
 };
 
