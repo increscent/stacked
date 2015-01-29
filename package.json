@@ -5,7 +5,7 @@
   "author": "Robert Williams <robert@increscent.org>",
   "contributors": [],
   "scripts": {
-    "preinstall": "sudo npm install -g forever",
+    "preinstall": "sudo npm install -g forever grunt-cli",
     "prestart": "./mongodb/start_mongo.sh",
     "start": "forever start stacked.js",
     "stop": "forever stop stacked.js",

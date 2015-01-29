@@ -5,7 +5,7 @@ module.exports = function (app) {
 			res.cookie('id', uuid);
 			req.cookies.id = uuid;
 		}
-		req.user_id = req.headers['user-agent'] + req.cookies.id;
+		req.user_id = req.cookies.id;
 		next();
 	});
 };

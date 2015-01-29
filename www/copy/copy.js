@@ -3,35 +3,30 @@ var title_input = document.getElementById('copy-title');
 var data_textarea = document.getElementById('copy-text');
 var feedback_span = document.getElementById('feedback');
 
-file_button.addEventListener('click', save);
-title_input.addEventListener('keydown', input_handler);
+var stream = new Stream();
+stream.on_error = function (message) {
+	update_feedback(message.error_text, false);
+};
 
-var name_changed_timeout;
+file_button.addEventListener('click', false);
+title_input.addEventListener('keydown', input_handler);
+data_textarea.addEventListener('keydown', input_handler);
+
+var input_change_timeout;
 function input_handler(e) {
-	if (e.keyCode === 13) {
-		save();
-	} else {
-		name_has_changed = true;
-		update_feedback('', false);
-		clearTimeout(name_changed_timeout);
-		name_changed_timeout = setTimeout(function () {
-			check_name(title_input.value);
-		}, 500);
-	}
+	update_feedback('', false);
+	clearTimeout(input_change_timeout);
+	input_change_timeout = setTimeout(function () {
+		update_stream();
+	}, 1000);
 }
 
-function check_name(name) {
-	name = validate_name(name);
-	if (!name) return;
+function update_stream() {
+	var name = validate_name(title_input.value);
+	var title = title_input.value;
+	var data = data_textarea.value;
 	
-	ajax_request('POST', '/is_copy_available', {name: name}, function (result) {
-		var data = JSON.parse(result);
-		if (data.available) {
-			update_feedback('&#9989;', true);
-		} else {
-			update_feedback('\'' + name + '\' is not available right now');
-		}
-	});
+	stream.send_update(name, title, data);
 }
 
 function update_feedback(feedback, positive) {
@@ -51,35 +46,17 @@ function validate_name(name) {
 	return name;
 }
 
-function save() {
-	var title = title_input.value;
-	var data = data_textarea.value;
-	var name = validate_name(title);
-	if (!name) return;
+// function ajax_request(type, url, data, callback) {
+// 	var request = new XMLHttpRequest();
 	
-	ajax_request('POST', '/save', {name: name, title: title, data: data}, function (result) {
-		result = JSON.parse(result);
-		if (result.error && !result.available) {
-			update_feedback('\'' + name + '\' is not available right now', false);
-		} else if (!result.error) {
-			update_feedback('Copy saved! Access it at <a href="/' + name + '">stacked.us/' + name + '</a>', true);
-		} else {
-			update_feedback('Oops, something went wrong. Please try again later.', false);
-		}
-	});
-}
-
-function ajax_request(type, url, data, callback) {
-	var request = new XMLHttpRequest();
-	
-	request.open(type.toUpperCase(), url, true);
-	request.setRequestHeader("Content-type","application/json");
-	request.onload = function () {
-		return callback(request.response);
-	};
-	if (type.toLowerCase() === 'post') data = JSON.stringify(data);
-	request.send(data);
-}
+// 	request.open(type.toUpperCase(), url, true);
+// 	request.setRequestHeader("Content-type","application/json");
+// 	request.onload = function () {
+// 		return callback(request.response);
+// 	};
+// 	if (type.toLowerCase() === 'post') data = JSON.stringify(data);
+// 	request.send(data);
+// }
 
 function redirect(url) {
 	window.location.href = url;

@@ -1,11 +1,11 @@
 var streams = {};
 
-var Stream = function (webSocket, app, user_id) {
+var Stream = function (webSocket, app) {
 	this.app = app;
-	this.user_id = user_id;
 	this.name;
 	this.title;
 	this.data;
+	this.user_id;
 	this.listeners = [];
 	
 	if (!webSocket) return this;
@@ -13,28 +13,7 @@ var Stream = function (webSocket, app, user_id) {
 	var _this = this;
 	webSocket.on('message', function (message) {
 		message = JSON.parse(message);
-		if (message.type === 'add') {
-			// make sure there is not already a copy with the same name
-			_this.is_name_available(message.name, function (is_available) {
-				if (is_available) {
-					_this.add(message);
-				} else {
-					webSocket.send('name_not_available');
-				}
-			});
-		} else if (message.type === 'update') {
-			if (_this.exists()) {
-				_this.update(message);
-			}
-		} else if (message.type === 'is_name_available') {
-			_this.is_name_available(message.name, function (is_available) {
-				if (is_available) {
-					webSocket.send('name_is_available');
-				} else {
-					webSocket.send('name_not_available');
-				}
-			});
-		}
+		_this.handle_message(message, webSocket);
 	});
 	
 	webSocket.on('close', function () {
@@ -42,10 +21,38 @@ var Stream = function (webSocket, app, user_id) {
 	});
 };
 
+Stream.prototype.handle_message = function (message, webSocket) {
+	var _this = this;
+	_this.user_id = message.user_id;
+	
+	if (message.type === 'update') {
+		if (message.name === _this.name) {
+			_this.update(message);
+		} else {
+			// if the name has changed
+			_this.is_name_available(message.name, function (is_available) {
+				if (is_available) {
+					// if the stream was added already, remove it
+					if (_this.exists()) delete streams[_this.name];
+					// add the new stream
+					_this.name = message.name;
+					_this.add(message);
+				} else {
+					var error_message = {
+						type: 'error',
+						error: 'name_not_available',
+						error_text: 'The name \'' + message.name + '\' is not available right now'
+					};
+					webSocket.send(JSON.stringify(error_message));
+				}
+			});
+		}
+	}
+};
+
 Stream.prototype.add = function (message) {
-	this.title = message.title;
-	this.data = message.data;
 	streams[this.name] = this;
+	this.update(message);
 };
 
 Stream.prototype.exists = function () {
@@ -54,8 +61,9 @@ Stream.prototype.exists = function () {
 
 Stream.prototype.is_name_available = function (name, callback) {
 	var copy = new this.app.Copy(name, this.app);
+	var _this = this;
 	copy.exists( function (copy_exists) {
-		if (!this.get(name) && (!copy_exists || copy.user_id == this.user_id)) {
+		if (!_this.get(name) && (!copy_exists || copy.user_id == _this.user_id)) {
 			return callback(true);
 		} else {
 			return callback(false);
@@ -68,13 +76,10 @@ Stream.prototype.get = function (name) {
 };
 
 Stream.prototype.update = function (message) {
-	if (message.name) {
-		streams[message.name] = this;
-		streams[this.name] = undefined;
-		this.name = message.name;
-	}
 	if (message.title) this.title = message.title;
 	if (message.data) this.data = message.data;
+	
+	for (var key in streams) console.log(key);
 };
 
 Stream.prototype.close = function (app) {

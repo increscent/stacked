@@ -19,7 +19,7 @@
 	padding: .3rem 1.7rem;
 }
 
-.copy-save-button {
+.file-button {
 	/*display: inline-block;*/
 	float: right;
 	font-size: 1rem;
@@ -32,7 +32,7 @@
 	border-radius: 3px;
 }
 
-.copy-save-button:hover {
+.file-button:hover {
 	cursor: pointer;
 	border-color: #3AC5C5;
 	color: #3AC5C5;
