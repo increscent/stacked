@@ -1,24 +1,25 @@
 .page-container {
+	width: 100%;
 	display: table;
 }
 
 .file-area {
 	display: table-cell;
-	width: 30%;
+	width: 26% !important;
 	height: 100%;
 }
 
 .copy-area {
 	display: table-cell;
-	width: 69%;
+	width: 74% !important;
 	height: 100%;
 }
 
 .copy-name-input {
-	padding: .3rem .7rem;
+	padding: .2rem .5rem;
 	border: none;
 	border-bottom: 2px dotted #aaa;
-	width: 20rem;
+	width: 15rem;
 	font-size: 1rem;
 	text-align: left;
 	color: #333;
@@ -28,7 +29,8 @@
 }
 
 .feedback {
-	padding: .3rem 1.7rem;
+	padding: .3rem 1.7rem 0;
+	position: absolute;
 }
 
 .file-button {

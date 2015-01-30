@@ -2,7 +2,8 @@
 
 var Stream = function () {
 	this.webSocket = new WebSocket('ws://localhost:1921', 'source');
-	this.on_error = '';
+	this.on_error;
+	this.on_success;
 	this.is_open = false;
 	
 	var _this = this;
@@ -35,6 +36,8 @@ Stream.prototype.send_update = function (name, title, data) {
 Stream.prototype.handle_message = function (message) {
 	if (message.type === 'error') {
 		this.on_error(message);
+	} else if (message.type === 'success') {
+		this.on_success(message);
 	}
 };
 

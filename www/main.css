@@ -37,7 +37,8 @@ a:active {
 }
 
 .feedback-positive {
-	color: #ABC466;
+	/*color: #ABC466;*/
+	color: #333;
 }
 
 .feedback-negative {

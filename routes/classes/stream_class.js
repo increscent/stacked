@@ -19,9 +19,13 @@ var Stream = function (webSocket, app) {
 	webSocket.on('close', function () {
 		_this.close();
 	});
+	
+	this.send_message = function (message) {
+		webSocket.send(JSON.stringify(message));
+	};
 };
 
-Stream.prototype.handle_message = function (message, webSocket) {
+Stream.prototype.handle_message = function (message) {
 	var _this = this;
 	_this.user_id = message.user_id;
 	
@@ -43,7 +47,7 @@ Stream.prototype.handle_message = function (message, webSocket) {
 						error: 'name_not_available',
 						error_text: 'The name \'' + message.name + '\' is not available right now'
 					};
-					webSocket.send(JSON.stringify(error_message));
+					_this.send_message(error_message);
 				}
 			});
 		}
@@ -79,7 +83,12 @@ Stream.prototype.update = function (message) {
 	if (message.title) this.title = message.title;
 	if (message.data) this.data = message.data;
 	
-	for (var key in streams) console.log(key);
+	var success_message = {
+		type: 'success',
+		success: 'update',
+		success_text: 'saved at <a target="_blank" href="/' + this.name + '">http://stacked.us/' + this.name + '</a>'
+	};
+	this.send_message(success_message);
 };
 
 Stream.prototype.close = function (app) {

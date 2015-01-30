@@ -7,6 +7,9 @@ var stream = new Stream();
 stream.on_error = function (message) {
 	update_feedback(message.error_text, false);
 };
+stream.on_success = function (message) {
+	update_feedback(message.success_text, true);
+};
 
 file_button.addEventListener('click', false);
 title_input.addEventListener('input', input_handler);
@@ -15,20 +18,28 @@ data_textarea.addEventListener('input', input_handler);
 var input_change_timeout;
 function input_handler(e) {
 	update_feedback('', false);
-	update_title();
+	// if the user has not changed title input, update it automatically
+	if (!user_input_for_title) {
+		if (e.srcElement.id === 'copy-title') {
+			user_input_for_title = true;
+		} else {
+			update_title();
+		}
+	}
+	// save after one second of not typing
 	clearTimeout(input_change_timeout);
 	input_change_timeout = setTimeout(function () {
 		update_stream();
 	}, 1000);
 }
 
+var user_input_for_title = false;
 function update_title() {
-	// if (!title_input.value) {
-	// 	var data = data_textarea.value;
-	// 	var first_space = data.indexOf(' ');
-	// 	if (first_space < 0) first_space = data.length;
-	// 	title_input.value = data.substring(0, first_space);
-	// }
+	var data = data_textarea.value;
+	// find first space after 10 characters
+	var first_space = data.indexOf(' ', 10);
+	if (first_space < 0) first_space = data.length;
+	title_input.value = data.substring(0, first_space);
 }
 
 function update_stream() {
