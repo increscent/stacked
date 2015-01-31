@@ -3,8 +3,10 @@ module.exports = function (app) {
 		var name = req.params.copy_name.toLowerCase();
 		// check if paste is in streams
 		var stream = new app.Stream(undefined, app);
-		if (stream.get(name)) {
-			send_paste(res, {name: name, stream_client: '<script src="/paste/stream_client.js"></script>'}, app.templating);
+		stream = stream.get(name);
+		if (stream) {
+			stream.stream_client = '<script src="/paste/stream_client.js"></script>';
+			send_paste(res, stream, app.templating);
 			return;
 		}
 		// then check if it is in the db

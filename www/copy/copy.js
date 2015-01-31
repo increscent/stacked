@@ -1,4 +1,4 @@
-var file_button = document.getElementById('load-file');
+var file_input = document.getElementById('load-file');
 var title_input = document.getElementById('copy-title');
 var data_textarea = document.getElementById('copy-text');
 var feedback_span = document.getElementById('feedback');
@@ -11,9 +11,13 @@ stream.on_success = function (message) {
 	update_feedback(message.success_text, true);
 };
 
-file_button.addEventListener('click', false);
+file_input.addEventListener('change', only_files);
 title_input.addEventListener('input', input_handler);
 data_textarea.addEventListener('input', input_handler);
+
+function only_files() {
+	remove_element(data_textarea);
+}
 
 var input_change_timeout;
 function input_handler(e) {
@@ -81,4 +85,8 @@ function validate_name(name) {
 
 function redirect(url) {
 	window.location.href = url;
+}
+
+function remove_element(node) {
+    node.parentNode.removeChild(node);
 }

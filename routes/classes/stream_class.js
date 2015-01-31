@@ -6,7 +6,7 @@ var Stream = function (webSocket, app) {
 	this.title;
 	this.data;
 	this.user_id;
-	this.listeners = [];
+	this.listeners = {};
 	
 	if (!webSocket) return this;
 	
@@ -89,6 +89,29 @@ Stream.prototype.update = function (message) {
 		success_text: 'saved at <a target="_blank" href="/' + this.name + '">http://stacked.us/' + this.name + '</a>'
 	};
 	this.send_message(success_message);
+	
+	for (var key in this.listeners) {
+		this.send_to_client(this.listeners[key]);
+	}
+};
+
+Stream.prototype.add_listener = function (webSocket) {
+	webSocket.random_id = this.app.uuid.v1();
+	this.listeners[webSocket.random_id] = webSocket;
+	var _this = this;
+	webSocket.on('close', function () {
+		delete _this.listeners[webSocket.random_id];
+	});
+};
+
+Stream.prototype.send_to_client = function (webSocket) {
+	var message = {
+		type: 'update',
+		name: this.name,
+		title: this.title,
+		data: this.data
+	};
+	webSocket.send(JSON.stringify(message));
 };
 
 Stream.prototype.close = function (app) {

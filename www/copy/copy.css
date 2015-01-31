@@ -33,23 +33,23 @@
 	position: absolute;
 }
 
-.file-button {
-	display: inline-block;
-	font-size: 1rem;
-	padding: .3rem .7rem;
-	color: #333;
-	border: 1px solid #aaa;
-	background-color: #fff;
-	-webkit-border-radius: 3px;
-	-moz-border-radius: 3px;
-	border-radius: 3px;
-}
+/*.file-input {*/
+/*	display: inline-block;*/
+/*	font-size: 1rem;*/
+/*	padding: .3rem .7rem;*/
+/*	color: #333;*/
+/*	border: 1px solid #aaa;*/
+/*	background-color: #fff;*/
+/*	-webkit-border-radius: 3px;*/
+/*	-moz-border-radius: 3px;*/
+/*	border-radius: 3px;*/
+/*}*/
 
-.file-button:hover {
-	cursor: pointer;
-	border-color: #3AC5C5;
-	color: #3AC5C5;
-}
+/*.file-input:hover {*/
+/*	cursor: pointer;*/
+/*	border-color: #3AC5C5;*/
+/*	color: #3AC5C5;*/
+/*}*/
 
 .copy-textarea {
 	box-sizing: border-box;
