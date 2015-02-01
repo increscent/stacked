@@ -41,6 +41,11 @@ Stream.prototype.handle_message = function (message) {
 	}
 };
 
+Stream.prototype.close = function () {
+	this.webSocket.close();
+	this.is_open = false;
+};
+
 function get_cookie(name) {
 	var id = name + '=';
 	var start_index = document.cookie.indexOf(id);
