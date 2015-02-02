@@ -19,7 +19,7 @@ var client_connection = function (webSocket, app) {
 			var name = message.name;
 			var stream = new app.Stream(undefined, app);
 			var source_stream = stream.get(name);
-			source_stream.add_listener(webSocket);
+			if (source_stream) source_stream.add_listener(webSocket);
 		}
 	});
 };

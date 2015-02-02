@@ -16,6 +16,7 @@ function textController() {
 	
 	title_input.addEventListener('input', input_handler);
 	data_textarea.addEventListener('input', input_handler);
+	data_textarea.addEventListener('input', resize_textarea);
 	
 	user_input_for_title = false;
 }
@@ -49,6 +50,7 @@ function update_title() {
 	// find first space after 10 characters
 	var first_space = data.indexOf(' ', 10);
 	if (first_space < 0) first_space = data.length;
+	first_space = (first_space > 15)? 15 : first_space;
 	title_input.value = data.substring(0, first_space);
 }
 
@@ -59,3 +61,11 @@ function update_text_stream() {
 	
 	if (name) stream.send_update(name, title, data);
 }
+
+var resize_textarea = function (e) {
+	console.log(e);
+	var text = e.srcElement.value;
+	var lines = (text.match(/\n/g) || []).length;
+	lines++;
+	if (lines > 20) e.srcElement.rows = lines;
+};

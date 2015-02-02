@@ -7,27 +7,21 @@ Copy.prototype.exists = function(callback) {
 	if (this.app.reserved_words.indexOf(this.name) > -1) return callback(true);
 	var _this = this;
 	this.app.models.copies.findOne({name: this.name}, function (err, copy) {
-		_this.copy = copy;
 		return (copy)? callback(copy) : callback(false);
 	});
 };
 
 Copy.prototype.save = function (data, callback) {
-	if (this.copy) {
-		for (var key in data) {
-			this.copy[key] = data[key];
-		}
+	data.name = this.name;
+	var copy;
+	if (data._id) {
+		copy = data;
 	} else {
-		var copy_data = {};
-		for (var key in data) {
-			copy_data[key] = data[key];
-		}
-		copy_data.name = this.name;
-		this.copy = new this.app.models.copies(copy_data);
+		copy = new this.app.models.copies(data);
 	}
 	
-	if (data.data) this.copy.markModified = 'data';
-	this.copy.save( function (err, new_copy) {
+	if (data.data) copy.markModified = 'data';
+	copy.save( function (err, new_copy) {
 		return (err)? callback(false) : callback(new_copy);
 	});
 };
@@ -35,7 +29,6 @@ Copy.prototype.save = function (data, callback) {
 Copy.prototype.get = function (callback) {
 	var _this = this;
 	this.app.models.copies.findOne({name: this.name}, function (err, copy) {
-		_this.copy = copy;
 		return callback(copy);
 	});
 };

@@ -4,32 +4,6 @@ module.exports = function (app) {
 			res.send(result);
 		});
 	});
-	
-	// app.post('/save', function (req, res) {
-	// 	var name = req.body.name.toLowerCase();
-	// 	var title = req.body.title;
-	// 	var data = req.body.data;
-		
-	// 	var copy = new app.Copy(name, app);
-	// 	copy.exists( function (copy) {
-	// 		if (!copy || req.user_id === copy.user_id) {
-	// 			copy.save({name: name, title: title, data: data, user_id: req.user_id}, function (new_copy) {
-	// 				send_response(res, {data: new_copy}, !new_copy);
-	// 			});
-	// 		} else {
-	// 			send_response(res, {available: false}, true);
-	// 		}
-	// 	});
-	// });
-	
-	// app.post('/is_copy_available', function (req, res) {
-	// 	var name = req.body.name.toLowerCase();
-		
-	// 	var copy = new app.Copy(name, app);
-	// 	copy.exists( function (exists) {
-	// 		send_response(res, {available: !exists, name: name}, exists);
-	// 	});
-	// });
 };
 
 function send_response(res, response, error) {

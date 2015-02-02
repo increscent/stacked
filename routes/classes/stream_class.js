@@ -119,8 +119,21 @@ Stream.prototype.close = function (app) {
 	
 	var _this = this;
 	var copy = new this.app.Copy(this.name, this.app);
-	copy.save({title: this.title, data: this.data, user_id: this.user_id}, function (result) {
-		delete streams[_this.name];
+	copy.get( function (result) {
+		if (result.name) {
+			result.title = _this.title;
+			result.data = _this.data;
+			result.user_id = _this.user_id;
+		} else {
+			result = {
+				title: _this.title,
+				data: _this.data,
+				user_id: _this.user_id
+			};
+		}
+		copy.save(result, function (result) {
+			delete streams[_this.name];
+		});
 	});
 };
 
