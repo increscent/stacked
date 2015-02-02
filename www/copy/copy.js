@@ -34,7 +34,6 @@ function close_websockets() {
 		websocket_connections[key].close();
 		delete websocket_connections[key];
 	}
-	console.log(websocket_connections);
 }
 
 function open_route(route) {
@@ -58,4 +57,21 @@ function ajax_request(type, url, data, callback) {
 	};
 	if (type.toLowerCase() === 'post') data = JSON.stringify(data);
 	request.send(data);
+}
+
+function update_feedback(feedback, positive) {
+	feedback_span.innerHTML = feedback;
+	if (positive)
+		feedback_span.className = 'feedback feedback-positive';
+	else
+		feedback_span.className = 'feedback feedback-negative';
+}
+
+function validate_name(name) {
+	var original = name;
+	var regex = new RegExp(' ', 'g');
+	name = name.replace(regex, '');
+	name = name.toLowerCase();
+	name = decodeURIComponent(encodeURIComponent(name));
+	return name;
 }

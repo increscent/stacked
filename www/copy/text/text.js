@@ -40,7 +40,7 @@ function input_handler(e) {
 	// save after one second of not typing
 	clearTimeout(input_change_timeout);
 	input_change_timeout = setTimeout(function () {
-		update_stream();
+		update_text_stream();
 	}, 1000);
 }
 
@@ -52,27 +52,10 @@ function update_title() {
 	title_input.value = data.substring(0, first_space);
 }
 
-function update_stream() {
+function update_text_stream() {
 	var name = validate_name(title_input.value);
 	var title = title_input.value;
 	var data = data_textarea.value;
 	
 	if (name) stream.send_update(name, title, data);
-}
-
-function update_feedback(feedback, positive) {
-	feedback_span.innerHTML = feedback;
-	if (positive)
-		feedback_span.className = 'feedback feedback-positive';
-	else
-		feedback_span.className = 'feedback feedback-negative';
-}
-
-function validate_name(name) {
-	var original = name;
-	var regex = new RegExp(' ', 'g');
-	name = name.replace(regex, '');
-	name = name.toLowerCase();
-	name = decodeURIComponent(encodeURIComponent(name));
-	return name;
 }
