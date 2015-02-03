@@ -58,6 +58,7 @@ function send_paste(res, replace_object, templating) {
 function send_raw(res, data) {
 	res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  console.log(data);
 	res.send(data);
 }
 
