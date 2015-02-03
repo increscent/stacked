@@ -24,5 +24,5 @@ this.webSocket.onmessage = function (event) {
 
 function update_paste(title, data) {
 	paste_title.innerHTML = title;
-	paste_data.innerHTML = data;
+	paste_data.innerHTML = remove_html_tags(data);
 }

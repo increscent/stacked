@@ -19,7 +19,7 @@ module.exports = function () {
 	app.headerHTML = 'www/header.html';
 	app.footerHTML = 'www/footer.html';
 	
-	app.reserved_words = ['source', 'about', 'stacked'];
+	app.reserved_words = ['source', 'about', 'stacked', 'raw'];
 	
 	app.bodyParser = require('body-parser');
 	app.use(app.bodyParser.urlencoded({extended: true}));

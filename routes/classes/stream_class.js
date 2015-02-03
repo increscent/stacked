@@ -23,6 +23,11 @@ var Stream = function (webSocket, app) {
 	this.send_message = function (message) {
 		webSocket.send(JSON.stringify(message));
 	};
+	
+	// save every minute
+	this.save_interval = setInterval( function () {
+		if (_this.name && _this.data) _this.save( function () {});
+	}, 60000);
 };
 
 Stream.prototype.handle_message = function (message) {
@@ -114,13 +119,21 @@ Stream.prototype.send_to_client = function (webSocket) {
 	webSocket.send(JSON.stringify(message));
 };
 
-Stream.prototype.close = function (app) {
+Stream.prototype.close = function () {
 	if (!this.exists()) return;
 	
 	var _this = this;
+	this.save( function () {
+		clearInterval(_this.save_interval);
+		delete streams[_this.name];
+	});
+};
+
+Stream.prototype.save = function (callback) {
+	var _this = this;
 	var copy = new this.app.Copy(this.name, this.app);
 	copy.get( function (result) {
-		if (result.name) {
+		if (result && result.name) {
 			result.title = _this.title;
 			result.data = _this.data;
 			result.user_id = _this.user_id;
@@ -132,7 +145,7 @@ Stream.prototype.close = function (app) {
 			};
 		}
 		copy.save(result, function (result) {
-			delete streams[_this.name];
+			return callback();
 		});
 	});
 };
