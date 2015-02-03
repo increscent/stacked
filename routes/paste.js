@@ -50,6 +50,7 @@ function send_404(res, name, templating) {
 function send_paste(res, replace_object, templating) {
 	replace_object.data = remove_html_tags(replace_object.data);
 	templating.renderHTML('www/paste/paste.html', {name: replace_object.name, html_title: '`title`', title: replace_object.title, data: replace_object.data, css: '/paste/paste.css', stream_client: replace_object.stream_client}, function (result) {
+		console.log(result);
 		res.send(result);
 	});
 }
