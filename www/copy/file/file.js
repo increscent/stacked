@@ -1,8 +1,21 @@
 function fileController() {
-	var file_selectors = [];
-	var parent_element = document.getElementById('file-container');
+	file_selectors = [];
+	parent_element = document.getElementById('file-container');
+	add_selector(file_selectors, parent_element);
+}
+var file_selectors;
+var parent_element;
+
+function add_selector() {
+	var file_selector = new FileSelection(file_selectors.length, parent_element);
+	file_selectors[file_selectors.length] = file_selector;
 	
-	file_selectors[file_selectors.length] = new FileSelection(file_selectors.length, parent_element);
+	file_selector.file_input.addEventListener('change', file_input_handler);
+}
+
+function file_input_handler(e) {
+	e.srcElement.removeEventListener('change', file_input_handler);
+	add_selector();
 }
 
 /* =============================
