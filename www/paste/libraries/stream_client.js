@@ -1,7 +1,7 @@
 var paste_title = document.getElementById('paste-title');
 var paste_data = document.getElementById('paste-data');
 
-var webSocket = new WebSocket('ws://stacked.us:1921', 'client');
+var webSocket = new WebSocket(websocket_uri, 'client');
 
 this.webSocket.onopen = function (event) {
 	var connect_message = {

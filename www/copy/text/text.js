@@ -8,10 +8,10 @@ function textController() {
 	stream = new Stream();
 	websocket_connections.push(stream);
 	stream.on_error = function (message) {
-		update_feedback(message.error_text, false);
+		update_feedback(feedback_span, message.error_text, false);
 	};
 	stream.on_success = function (message) {
-		update_feedback(message.success_text, true);
+		update_feedback(feedback_span, message.success_text, true);
 	};
 	
 	title_input.addEventListener('input', input_handler);

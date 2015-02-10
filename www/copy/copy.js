@@ -59,7 +59,7 @@ function ajax_request(type, url, data, callback) {
 	request.send(data);
 }
 
-function update_feedback(feedback, positive) {
+function update_feedback(feedback_span, feedback, positive) {
 	feedback_span.innerHTML = feedback;
 	if (positive)
 		feedback_span.className = 'feedback feedback-positive';

@@ -1,7 +1,7 @@
 /* class to facilitate client/server communication */
 
 var Stream = function () {
-	this.webSocket = new WebSocket('ws://stacked.us:1921', 'source');
+	this.webSocket = new WebSocket(websocket_uri, 'source');
 	this.on_error;
 	this.on_success;
 	this.is_open = false;
