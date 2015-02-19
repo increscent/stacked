@@ -32,7 +32,8 @@ function input_handler(e) {
 	update_feedback('', false);
 	// if the user has not changed title input, update it automatically
 	if (!user_input_for_title) {
-		if (e.srcElement.id === 'copy-title') {
+		var target = e.target | e.srcElement;
+		if (target.id === 'copy-title') {
 			user_input_for_title = true;
 		} else {
 			update_title();
