@@ -64,7 +64,8 @@ function update_text_stream() {
 }
 
 var resize_textarea = function (e) {
-	var text = e.srcElement.value;
+	var target = e.target | e.srcElement;
+	var text = target.value;
 	var lines = (text.match(/\n/g) || []).length;
 	lines++;
 	if (lines > 20) e.srcElement.rows = lines;
