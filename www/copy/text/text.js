@@ -66,6 +66,8 @@ function update_text_stream() {
 var resize_textarea = function (e) {
 	var target = e.target | e.srcElement;
 	var text = target.value;
+	console.log(target);
+	console.log(text);
 	var lines = (text.match(/\n/g) || []).length;
 	lines++;
 	if (lines > 20) e.srcElement.rows = lines;
