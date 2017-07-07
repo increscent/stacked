@@ -10,8 +10,9 @@ function textController() {
   stream.on_error = function (message) {
     update_feedback(feedback_span, message.error_text, false);
   };
-  stream.on_success = function (message) {
-    update_feedback(feedback_span, message.success_text, true);
+  stream.on_uri = function (uri) {
+    var uri_text = 'saved at <a target="_blank" href="/' + uri + '">http://stacked.increscent.org/' + uri + '</a>';
+    update_feedback(feedback_span, uri_text, true);
   };
 
   title_input.addEventListener('input', input_handler);
@@ -56,11 +57,10 @@ function update_title() {
 }
 
 function update_text_stream() {
-  var name = validate_name(title_input.value);
   var title = title_input.value;
   var data = data_textarea.value;
 
-  if (name) stream.send_update(name, title, data);
+  stream.send_update(title, data);
 }
 
 var resize_textarea = function (e) {

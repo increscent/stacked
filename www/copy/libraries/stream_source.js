@@ -5,7 +5,7 @@ var Stream = function () {
 	this.on_error;
 	this.on_success;
 	this.is_open = false;
-	
+
 	var _this = this;
 	this.webSocket.onopen = function (event) {
 		_this.is_open = true;
@@ -19,26 +19,28 @@ var Stream = function () {
 	};
 };
 
-Stream.prototype.send_update = function (name, title, data) {
+Stream.prototype.send_update = function (title, data) {
 	var message = {
-		name: name,
 		title: title,
 		data: data,
-		type: 'update',
+		request_type: 'update',
 		user_id: get_cookie('id')
 	};
-	
+
 	if (this.is_open) {
 		this.webSocket.send(JSON.stringify(message));
 	}
 };
 
 Stream.prototype.handle_message = function (message) {
-	if (message.type === 'error') {
-		this.on_error(message);
-	} else if (message.type === 'success') {
-		this.on_success(message);
-	}
+	switch (message.request_type) {
+		case 'error':
+			this.on_error(message);
+			break;
+		case 'get_uri':
+			this.on_uri(message.uri);
+			break;
+	};
 };
 
 Stream.prototype.close = function () {

@@ -3,7 +3,7 @@ var File = function (file_input, file_selector) {
 	this.timestamp;
 	this.file_selector = file_selector;
 	this.reader = new FileReader();
-	
+
 	var _this = this;
 	file_input.addEventListener('change', function (e) {
 		_this.timestamp = 0;
@@ -15,7 +15,7 @@ var File = function (file_input, file_selector) {
 File.prototype.check_file_changes = function (file) {
 	var _this = this;
 	this.read_file(file);
-	
+
 	if (this.update_interval) clearInterval(this.update_interval);
 	this.update_interval = setInterval( function () {
 		_this.read_file(file);
@@ -30,10 +30,15 @@ File.prototype.read_file = function (file) {
 	if (file.lastModified === this.timestamp) return;
 	this.timestamp = file.lastModified;
 
-	var _this = this;
-	this.reader.onload = function(e) {
-		_this.file_selector.handleFileChange(_this.reader.result);
-	};
+	//var _this = this;
+	//this.reader.onload = function(e) {
+	//	_this.file_selector.handleFileChange(_this.reader.result);
+	//};
+	//this.reader.readAsText(file);
 
-	this.reader.readAsText(file);
+	// Start a form with file data
+	var formData = new FormData();
+	formData.append('data', file);
+	formData.append('content_type', file.type)
+	this.file_selector.handleFileChange(formData);
 };

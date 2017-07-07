@@ -6,10 +6,10 @@ module.exports = function (app) {
 };
 
 function remove_overdue_copies(app) {
-	app.models.copies.find({}, function (err, data) {
+	app.models.Copy.find({}, function (err, data) {
 		for (var key in data) {
 			if ((new Date()).getTime() - data[key].timestamp.getTime() > app.copy_duration) {
-				app.models.copies.remove({name: data[key].name}, function (err) {
+				app.models.Copy.remove({uri: data[key].uri}, function (err) {
 					if (err) console.log(err);
 				});
 			}

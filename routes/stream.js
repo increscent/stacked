@@ -15,10 +15,10 @@ var source_connection = function (webSocket, app) {
 var client_connection = function (webSocket, app) {
 	webSocket.on('message', function (message) {
 		message = JSON.parse(message);
-		if (message.type === 'connect') {
-			var name = message.name;
+		if (message.request_type === 'connect') {
+			var uri = message.uri;
 			var stream = new app.Stream(undefined, app);
-			var source_stream = stream.get(name);
+			var source_stream = stream.get(uri);
 			if (source_stream) source_stream.add_listener(webSocket);
 		}
 	});
