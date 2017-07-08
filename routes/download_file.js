@@ -5,14 +5,14 @@ module.exports = function (app) {
 		var stream = new app.Stream(undefined, app);
 		stream = stream.get(uri);
 		if (stream) {
-      serve_file(stream.file_path, res, app);
+      serve_file(stream.file_path, stream.file_name, res, app);
 			return;
 		}
 		// then check if it is in the db
 		var copy = new app.Copy(uri, app);
 		copy.get( function (result, error) {
 			if (result) {
-        serve_file(result.file_path, res, app);
+        serve_file(result.file_path, result.file_name, res, app);
 			} else {
 				res.send(error);
 			}
@@ -20,11 +20,10 @@ module.exports = function (app) {
   });
 };
 
-function serve_file(file_path, res, app) {
-  var filename = app.npm_path.basename(file_path);
+function serve_file(file_path, file_name, res, app) {
   var mimetype = app.npm_mime.lookup(file_path);
 
-  res.setHeader('Content-disposition', 'attachment; filename=' + filename);
+  res.setHeader('Content-disposition', 'attachment; filename=' + file_name);
   res.setHeader('Content-type', mimetype);
 
   var filestream = app.fs.createReadStream(file_path);
