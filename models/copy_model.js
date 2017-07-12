@@ -8,6 +8,7 @@ module.exports = function (app) {
 		timestamp: {type: Date, default: Date.now},
 		data: String,
 		file_path: String,
+		file_name: String,
 		type: String,
 		user_id: String // cookie id
 	});

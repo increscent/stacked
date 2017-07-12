@@ -11,6 +11,7 @@ var Stream = function (webSocket, app, uri) {
 	this.title = '';
 	this.data = '';
 	this.file_path;
+	this.file_name;
 	this.copy_type = 'TEXT';
 	this.user_id;
 	this.listeners = {}; // These are connections that see live updates to the copy
@@ -77,10 +78,11 @@ Stream.prototype.update = function (message) {
 };
 
 // Internal process to update the file information
-Stream.prototype.file_update = function (file_path) {
+Stream.prototype.file_update = function (file_path, file_name) {
 	this.copy_type = 'FILE';
 	this.file_path = file_path;
-	this.data = '<a href="/download/' + this.uri + '" download>Download File</a>';
+	this.file_name = file_name;
+	this.data = '<a href="/download/' + this.uri + '" download>' + this.file_name + '</a>';
 	this.update({});
 }
 
