@@ -21,11 +21,15 @@ module.exports = function (app) {
 };
 
 function serve_file(file_path, file_name, res, app) {
-  var mimetype = app.npm_mime.lookup(file_path);
+  try {
+    var filestream = app.fs.createReadStream(file_path);
 
-  res.setHeader('Content-disposition', 'attachment; filename=' + file_name);
-  res.setHeader('Content-type', mimetype);
+    var mimetype = app.npm_mime.lookup(file_path);
+    res.setHeader('Content-disposition', 'attachment; filename=' + file_name);
+    res.setHeader('Content-type', mimetype);
 
-  var filestream = app.fs.createReadStream(file_path);
-  filestream.pipe(res);
+    filestream.pipe(res);
+  } catch (error) {
+    res.send();
+  }
 }
