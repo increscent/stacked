@@ -1,6 +1,8 @@
 node_modules
 node_modules/*
 mongodb/*
+uploads/*
+package-lock.json
 !mongodb/start_mongo.sh
 !mongodb/stop_mongo.sh
 !mongodb/mongodb.config
