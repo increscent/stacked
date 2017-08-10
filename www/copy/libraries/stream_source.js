@@ -9,6 +9,8 @@ var Stream = function () {
 	var _this = this;
 	this.webSocket.onopen = function (event) {
 		_this.is_open = true;
+
+		_this.send_request('', '', 'get_uri');
 	};
 	this.webSocket.onclose = function (event) {
 		_this.is_open = false;
@@ -31,6 +33,19 @@ Stream.prototype.send_update = function (title, data) {
 		this.webSocket.send(JSON.stringify(message));
 	}
 };
+
+Stream.prototype.send_request = function (title, data, type) {
+	var message = {
+		title: title,
+		data: data,
+		request_type: type,
+		user_id: get_cookie('id')
+	};
+
+	if (this.is_open) {
+		this.webSocket.send(JSON.stringify(message));
+	}
+}
 
 Stream.prototype.handle_message = function (message) {
 	switch (message.request_type) {

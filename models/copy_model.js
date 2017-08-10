@@ -3,7 +3,7 @@
 module.exports = function (app) {
 	var Schema = app.mongoose.Schema;
 	var copySchema = new Schema({
-		uri: String,
+		uri: Number,
 		title: String,
 		timestamp: {type: Date, default: Date.now},
 		data: String,

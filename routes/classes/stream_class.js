@@ -7,7 +7,7 @@ var streams = {};
 var Stream = function (webSocket, app, uri) {
 	this.app = app;
 	app.streams = streams; // Maybe not necessary to do this every time?
-	this.uri = app.shortid.generate();
+	this.uri;
 	this.title = '';
 	this.data = '';
 	this.file_path;
@@ -21,6 +21,8 @@ var Stream = function (webSocket, app, uri) {
 
 	var _this = this;
 	webSocket.on('message', function (message) {
+		if (_this.uri == undefined) _this.init();
+
 		message = JSON.parse(message);
 		_this.handle_message(message, webSocket);
 	});
@@ -33,11 +35,11 @@ var Stream = function (webSocket, app, uri) {
 	this.save_interval = setInterval( function () {
 		if (_this.title || _this.data) _this.save( function () {});
 	}, 60000);
+};
 
-	// initialize the connection with a uri
-	this.send_uri();
-
-	// add this stream to the list
+// Function to init connection
+Stream.prototype.init = function () {
+	this.uri = this.app.Uri.getNext();
 	streams[this.uri] = this;
 };
 

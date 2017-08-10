@@ -22,6 +22,9 @@ function remove_overdue_copies(app) {
 				app.models.Copy.remove({uri: data[key].uri}, function (err) {
 					if (err) console.log(err);
 				});
+
+				// unset the uri
+				app.Uri.unset(data[key].uri)
 			}
 		}
 	});
